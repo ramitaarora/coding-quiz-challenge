@@ -24,3 +24,10 @@ quizData = [
     }
 ]
 
+var startButton = document.querySelector("#start-button");
+var quizVisibility = document.querySelector(".quiz");
+
+startButton.addEventListener('click', function() {
+    quizVisibility.removeAttribute("class", "hidden");
+    startButton.setAttribute("class", "hidden")
+})
