@@ -28,29 +28,52 @@ var startButton = document.querySelector("#start-button");
 var quiz = document.querySelector(".quiz");
 var question = document.querySelector(".question");
 var answers = document.querySelector(".answers");
+var selectAnswer = document.querySelector(".each-answer");
+var right = document.querySelector(".right");
+var wrong = document.querySelector(".wrong");
 
-startButton.addEventListener('click', function() {
+var questionNumber = 0;
+
+startButton.addEventListener('click', function(event) {
+    event.preventDefault;
     quiz.removeAttribute("class", "hidden");
     startButton.setAttribute("class", "hidden");
     playQuiz();
 })
 
 function playQuiz() {
-    var questionNumber = 0;
-    nextQuestion([questionNumber]);
+    // quiz.innerHTML = '';
+    // answers.innerHTML = '';
 
-    function nextQuestion() {
-        var eachQuestion = document.createElement("h2");
-        eachQuestion.textContent = quizData[questionNumber].question;
-        question.append(eachQuestion);
+    var eachQuestion = document.createElement("h2");
+    eachQuestion.textContent = quizData[questionNumber].question;
+    question.append(eachQuestion);
 
-        for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
-            var eachAnswer = document.createElement("p");
-            eachAnswer.textContent = quizData[questionNumber].answer[i]
-            answers.append(eachAnswer);
-        }
+    for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
+        var eachAnswer = document.createElement("p");
+        eachAnswer.setAttribute("class", "each-answer")
+        eachAnswer.textContent = quizData[questionNumber].answer[i]
+        answers.append(eachAnswer);
     }
-    
+}
 
-    
+answers.addEventListener('click', function(event) {
+    //console.log(event.target.textContent);
+    if (event.target.textContent === quizData[questionNumber].answer[0]) {
+        rightAnswer();
+    } else {
+        wrongAnswer();
+    }
+})
+
+function rightAnswer() {
+    right.removeAttribute("class", "hidden");
+    questionNumber += 1;
+    //playQuiz();
+}
+
+function wrongAnswer() {
+    wrong.removeAttribute("class", "hidden");
+    questionNumber += 1;
+    //playQuiz();
 }
