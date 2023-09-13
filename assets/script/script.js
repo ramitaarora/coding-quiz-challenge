@@ -1,7 +1,4 @@
-var totalWins;
-var totalLosses;
-
-quizData = [
+var quizData = [
     {
         question: "Commonly used data types do NOT include:",
         answer: ["alerts", "strings", "booleans", "numbers"] 
@@ -32,6 +29,7 @@ var selectAnswer = document.querySelector(".each-answer");
 var right = document.querySelector(".right");
 var wrong = document.querySelector(".wrong");
 
+var totalScore = 0;
 var questionNumber = 0;
 
 startButton.addEventListener('click', function(event) {
@@ -42,23 +40,30 @@ startButton.addEventListener('click', function(event) {
 })
 
 function playQuiz() {
-    // quiz.innerHTML = '';
-    // answers.innerHTML = '';
+    if (questionNumber < quizData.length) {
 
-    var eachQuestion = document.createElement("h2");
-    eachQuestion.textContent = quizData[questionNumber].question;
-    question.append(eachQuestion);
+        var eachQuestion = document.createElement("h2");
+        eachQuestion.textContent = quizData[questionNumber].question;
+        question.append(eachQuestion);
+        //console.log(questionNumber);
 
-    for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
-        var eachAnswer = document.createElement("p");
-        eachAnswer.setAttribute("class", "each-answer")
-        eachAnswer.textContent = quizData[questionNumber].answer[i]
-        answers.append(eachAnswer);
+        for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
+            var eachAnswer = document.createElement("p");
+            eachAnswer.setAttribute("class", "each-answer")
+            eachAnswer.textContent = quizData[questionNumber].answer[i]
+            answers.append(eachAnswer);
+        }
+    } else {
+        wrong.setAttribute("class", "hidden");
+        right.setAttribute("class", "hidden");
+        calculateScore();
     }
 }
 
 answers.addEventListener('click', function(event) {
     //console.log(event.target.textContent);
+    wrong.setAttribute("class", "hidden");
+    right.setAttribute("class", "hidden");
     if (event.target.textContent === quizData[questionNumber].answer[0]) {
         rightAnswer();
     } else {
@@ -69,11 +74,25 @@ answers.addEventListener('click', function(event) {
 function rightAnswer() {
     right.removeAttribute("class", "hidden");
     questionNumber += 1;
-    //playQuiz();
+    totalScore += 1;
+    question.innerHTML = '';
+    answers.innerHTML = '';
+    playQuiz();
 }
 
 function wrongAnswer() {
     wrong.removeAttribute("class", "hidden");
     questionNumber += 1;
-    //playQuiz();
+    question.innerHTML = '';
+    answers.innerHTML = '';
+    playQuiz();
+}
+
+function calculateScore() {
+    var percentage = (totalScore / quizData.length) * 100;
+    var displayScore = document.createElement("h2");
+    displayScore.textContent = "Total score: " + percentage + "%";
+    quiz.append(displayScore);
+    quiz.removeAttribute("class", "hidden");
+    startButton.removeAttribute("class", "hidden");
 }
