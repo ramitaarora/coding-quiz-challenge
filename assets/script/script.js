@@ -28,40 +28,49 @@ var answers = document.querySelector(".answers");
 var selectAnswer = document.querySelector(".each-answer");
 var right = document.querySelector(".right");
 var wrong = document.querySelector(".wrong");
+var score = document.querySelector(".score");
+var playAgain = document.querySelector(".play-again");
+var playAgainButton = document.querySelector('#play-again-button');
+var timer = document.querySelector(".timer");
 
 var totalScore = 0;
 var questionNumber = 0;
+var secondsLeft = 10;
+
+function quizTimer() {
+    var timerInterval = setInterval(function () {
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+            calculateScore();
+        } else {
+            secondsLeft--;
+            timer.textContent = "Timer: " + secondsLeft;
+        }
+    }, 1000)
+}
 
 startButton.addEventListener('click', function(event) {
-    event.preventDefault;
-    quiz.removeAttribute("class", "hidden");
+    event.preventDefault();
     startButton.setAttribute("class", "hidden");
+    quizTimer();
     playQuiz();
 })
 
-function playQuiz() {
-    if (questionNumber < quizData.length) {
-
-        var eachQuestion = document.createElement("h2");
-        eachQuestion.textContent = quizData[questionNumber].question;
-        question.append(eachQuestion);
-        //console.log(questionNumber);
-
-        for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
-            var eachAnswer = document.createElement("p");
-            eachAnswer.setAttribute("class", "each-answer")
-            eachAnswer.textContent = quizData[questionNumber].answer[i]
-            answers.append(eachAnswer);
-        }
-    } else {
-        wrong.setAttribute("class", "hidden");
-        right.setAttribute("class", "hidden");
-        calculateScore();
-    }
-}
+playAgainButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    questionNumber = 0;
+    totalScore = 0;
+    secondsLeft = 10;
+    score.innerHTML = '';
+    timer.textContent = "Timer: " + secondsLeft;
+    score.setAttribute("class", "hidden");
+    playAgain.setAttribute("class", "hidden");
+    quizTimer.removeAttribute("class", "hidden");
+    playQuiz();
+    quizTimer();
+})
 
 answers.addEventListener('click', function(event) {
-    //console.log(event.target.textContent);
     wrong.setAttribute("class", "hidden");
     right.setAttribute("class", "hidden");
     if (event.target.textContent === quizData[questionNumber].answer[0]) {
@@ -75,24 +84,48 @@ function rightAnswer() {
     right.removeAttribute("class", "hidden");
     questionNumber += 1;
     totalScore += 1;
-    question.innerHTML = '';
-    answers.innerHTML = '';
     playQuiz();
 }
 
 function wrongAnswer() {
     wrong.removeAttribute("class", "hidden");
     questionNumber += 1;
-    question.innerHTML = '';
-    answers.innerHTML = '';
     playQuiz();
 }
 
 function calculateScore() {
+    quizTimer.setAttribute("class", "hidden");
+    wrong.setAttribute("class", "hidden");
+    right.setAttribute("class", "hidden");
+    question.innerHTML = '';
+    answers.innerHTML = '';
     var percentage = (totalScore / quizData.length) * 100;
     var displayScore = document.createElement("h2");
     displayScore.textContent = "Total score: " + percentage + "%";
-    quiz.append(displayScore);
+    score.append(displayScore);
+    score.removeAttribute("class", "hidden");
+    playAgain.removeAttribute("class", "hidden");
+}
+
+function playQuiz() {
     quiz.removeAttribute("class", "hidden");
-    startButton.removeAttribute("class", "hidden");
+    question.innerHTML = '';
+    answers.innerHTML = '';
+
+    if (questionNumber < quizData.length && secondsLeft > 0) {
+
+        var eachQuestion = document.createElement("h2");
+        eachQuestion.textContent = quizData[questionNumber].question;
+        question.append(eachQuestion);
+        //console.log(questionNumber);
+
+        for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
+            var eachAnswer = document.createElement("p");
+            eachAnswer.setAttribute("class", "each-answer")
+            eachAnswer.textContent = quizData[questionNumber].answer[i]
+            answers.append(eachAnswer);
+        }
+    } else {
+        calculateScore();
+    }
 }
