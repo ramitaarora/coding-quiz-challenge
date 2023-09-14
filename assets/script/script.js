@@ -28,14 +28,22 @@ var answers = document.querySelector(".answers");
 var selectAnswer = document.querySelector(".each-answer");
 var right = document.querySelector(".right");
 var wrong = document.querySelector(".wrong");
-var score = document.querySelector(".score");
+var viewScore = document.querySelector(".view-score");
 var playAgain = document.querySelector(".play-again");
 var playAgainButton = document.querySelector('#play-again-button');
 var timer = document.querySelector(".timer");
+var enterName = document.querySelector(".enter-name");
+var nameInput = document.querySelector("#user-name");
+var submitName = document.querySelector("#submit-name");
+var saved = document.querySelector(".saved");
 
 var totalScore = 0;
 var questionNumber = 0;
 var secondsLeft = 10;
+var percentage;
+var scoresArray = [];
+var prevScores;
+var highScore;
 
 function quizTimer() {
     var timerInterval = setInterval(function () {
@@ -61,10 +69,16 @@ playAgainButton.addEventListener('click', function (event) {
     questionNumber = 0;
     totalScore = 0;
     secondsLeft = 10;
-    score.innerHTML = '';
+    percentage;
+    viewScore.innerHTML = '';
+    nameInput.value;
     timer.textContent = "Timer: " + secondsLeft;
-    score.setAttribute("class", "hidden");
+
+    enterName.setAttribute("class", "hidden");
+    viewScore.setAttribute("class", "hidden");
     playAgain.setAttribute("class", "hidden");
+    saved.setAttribute("class", "hidden");
+
     playQuiz();
     quizTimer();
 })
@@ -97,16 +111,31 @@ function calculateScore() {
     right.setAttribute("class", "hidden");
     question.innerHTML = '';
     answers.innerHTML = '';
-    console.log("totalScore", totalScore);
-    console.log("questionNumber", questionNumber);
 
-    var percentage = (totalScore / quizData.length) * 100;
+    percentage = (totalScore / quizData.length) * 100;
     var displayScore = document.createElement("h2");
     displayScore.textContent = "Total score: " + percentage + "%";
-    score.append(displayScore);
-    score.removeAttribute("class", "hidden");
+    viewScore.append(displayScore);
+    viewScore.removeAttribute("class", "hidden");
 
+    saveHighScore(percentage);
+}
+
+function saveHighScore(newScore) {
+    saved.setAttribute("class", "hidden");
+    enterName.removeAttribute("class", "hidden");
     playAgain.removeAttribute("class", "hidden");
+
+    submitName.addEventListener('click', function(event) {
+        event.preventDefault();
+        
+        highScore = {name: nameInput.value, score: newScore};
+        scoresArray.push(highScore);
+        localStorage.setItem("scores", JSON.stringify(scoresArray));
+        
+        saved.removeAttribute("class", "hidden");
+        enterName.setAttribute("class", "hidden");
+    })
 }
 
 function playQuiz() {
@@ -119,12 +148,11 @@ function playQuiz() {
         var eachQuestion = document.createElement("h2");
         eachQuestion.textContent = quizData[questionNumber].question;
         question.append(eachQuestion);
-        //console.log(questionNumber);
 
         for (var i=0; i < (quizData[questionNumber].answer).length; i++) {
             var eachAnswer = document.createElement("p");
-            eachAnswer.setAttribute("class", "each-answer")
-            eachAnswer.textContent = quizData[questionNumber].answer[i]
+            eachAnswer.setAttribute("class", "each-answer");
+            eachAnswer.textContent = quizData[questionNumber].answer[i];
             answers.append(eachAnswer);
         }
     }

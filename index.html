@@ -7,20 +7,19 @@
     <title>Coding Quiz Challenge</title>
 </head>
 <body>
+    <nav>
+        <a href="./highscores.html" id="view-scores-button">View High Scores</a>
+        <p class="timer">Timer: 10</p>
+    </nav>
     <header>
-        <nav>
-            <a href="./highscores.html">View High Scores</a>
-            <p class="timer">Timer: 10</p>
-        </nav>
         <h1>Coding Quiz Challenge</h1>
-        
     </header>
-    <main>
+    <main class="main">
         <section class="start">
             <button id="start-button">Click to Start Quiz</button>
         </section>
         <section class="quiz hidden">
-            <div class="score">
+            <div class="view-score">
                 
             </div>
             <div class="question">
@@ -34,11 +33,20 @@
                 <p class="wrong hidden">Wrong!</p>
                 <p class="right hidden">Right!</p>
             </div>
+            <div class="enter-name hidden">
+                <form>
+                    <input type="text" id="user-name"/>
+                    <button type="submit" id="submit-name">Submit High Score</button>
+                </form>
+            </div>
+            <p class="saved hidden">Saved!</p>
             <div class="play-again hidden">
                 <button id="play-again-button">Click to Play Again</button>
+                
             </div>
         </section>
     </main>
+    </section>
     <script src="./assets/script/script.js"></script>
 </body>
 </html>
