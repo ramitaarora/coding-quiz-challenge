@@ -1,4 +1,108 @@
+/* Global Styles */
+
+* {
+    font-family:'Courier New', Courier, monospace;
+}
+
 .hidden {
     display: none;
 }
 
+:root {
+    --teal: rgb(0, 159, 159);
+    --lightteal: rgb(183, 250, 250);
+    --radius: 10px;
+    --shadow: 2px 2px 2px grey;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+a {
+    color: var(--teal);
+}
+
+header {
+    text-align: center;
+}
+
+button {
+    padding: 12px;
+    color: var(--lightteal);
+    background-color: var(--teal);
+    border: none;
+    border-radius: var(--radius);
+}
+
+button:hover {
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+/* Quiz Styling */
+
+main {
+    margin: 40px;
+    text-align: center;
+}
+
+.answers p {
+    background-color: var(--teal);
+    padding: 10px;
+    color: var(--lightteal);
+    margin: 10px auto;
+    width: 30%;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.answers p:hover {
+    background-color: var(--lightteal);
+    padding: 10px;
+    color: var(--teal);
+    cursor: pointer;
+}
+
+/* Submit Score Styling */
+
+.enter-name {
+    margin: 50px auto;
+}
+
+#submit-name {
+    padding: 5px;
+}
+
+#play-again-button {
+    margin: 20px auto;
+}
+
+/* High Scores */
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0 auto;
+    width: 20%;
+    text-align: center;
+    background-color: var(--teal);
+    color: var(--lightteal);
+}
+
+li:nth-of-type(even) {
+    color: var(--teal);
+    background-color: var(--lightteal);
+}
+
+li:hover {
+    text-shadow: 1px 1px 1px white;
+}
