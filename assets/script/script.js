@@ -39,7 +39,7 @@ var secondsLeft = 10;
 
 function quizTimer() {
     var timerInterval = setInterval(function () {
-        if (secondsLeft === 0) {
+        if (secondsLeft === 0 || questionNumber === quizData.length) {
             clearInterval(timerInterval);
             calculateScore();
         } else {
@@ -65,7 +65,6 @@ playAgainButton.addEventListener('click', function (event) {
     timer.textContent = "Timer: " + secondsLeft;
     score.setAttribute("class", "hidden");
     playAgain.setAttribute("class", "hidden");
-    quizTimer.removeAttribute("class", "hidden");
     playQuiz();
     quizTimer();
 })
@@ -94,16 +93,19 @@ function wrongAnswer() {
 }
 
 function calculateScore() {
-    quizTimer.setAttribute("class", "hidden");
     wrong.setAttribute("class", "hidden");
     right.setAttribute("class", "hidden");
     question.innerHTML = '';
     answers.innerHTML = '';
+    console.log("totalScore", totalScore);
+    console.log("questionNumber", questionNumber);
+
     var percentage = (totalScore / quizData.length) * 100;
     var displayScore = document.createElement("h2");
     displayScore.textContent = "Total score: " + percentage + "%";
     score.append(displayScore);
     score.removeAttribute("class", "hidden");
+
     playAgain.removeAttribute("class", "hidden");
 }
 
@@ -125,7 +127,5 @@ function playQuiz() {
             eachAnswer.textContent = quizData[questionNumber].answer[i]
             answers.append(eachAnswer);
         }
-    } else {
-        calculateScore();
     }
 }
