@@ -42,6 +42,7 @@ var enterName = document.querySelector(".enter-name");
 var nameInput = document.querySelector("#user-name");
 var submitName = document.querySelector("#submit-name");
 var saved = document.querySelector(".saved");
+var notSaved = document.querySelector(".not-saved");
 
 var totalScore = 0;
 var questionNumber = 0;
@@ -127,6 +128,7 @@ playAgainButton.addEventListener('click', function (event) {
     viewScore.setAttribute("class", "hidden");
     playAgain.setAttribute("class", "hidden");
     saved.setAttribute("class", "hidden");
+    notSaved.setAttribute("class", "hidden");
 
     playQuiz();
     quizTimer();
@@ -149,6 +151,7 @@ function calculateScore() {
 
 function saveHighScore() {
     saved.setAttribute("class", "hidden");
+    notSaved.setAttribute("class", "hidden");
     enterName.removeAttribute("class", "hidden");
     playAgain.removeAttribute("class", "hidden");
 }
@@ -162,11 +165,16 @@ submitName.addEventListener('click', function(event) {
         scoresArray = oldScores;
     }
 
+    if (nameInput.value) {
     highScore = {name: nameInput.value, score: totalScore};
     
     scoresArray.push(highScore);
     localStorage.setItem("scores", JSON.stringify(scoresArray));
-
+    
+    notSaved.setAttribute("class", "hidden");
     saved.removeAttribute("class", "hidden");
     enterName.setAttribute("class", "hidden");
+    } else if (!nameInput.value) {
+        notSaved.removeAttribute("class", "hidden");
+    }
 })
