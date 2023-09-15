@@ -7,43 +7,47 @@
     <title>Coding Quiz Challenge</title>
 </head>
 <body>
-    <nav>
-        <a href="./highscores.html" id="view-scores-link">View High Scores</a>
-        <p class="timer">Timer: 75</p>
-    </nav>
     <header>
+        <nav>
+            <a href="./highscores.html" id="view-scores-link">View High Scores</a>
+            <p class="timer">Timer: 75</p>
+        </nav>
         <h1>Coding Quiz Challenge</h1>
         <button id="start-button">Click to Start Quiz</button>
     </header>
     <main>
         <section class="quiz hidden">
+
             <div class="view-score">
-                
             </div>
+
             <div class="question">
-                
             </div>
+
             <div class="answers">
-                
             </div>
+
             <div class="wrong-right">
                 <p class="wrong hidden">Wrong!</p>
                 <p class="right hidden">Right!</p>
             </div>
+
             <div class="enter-name hidden">
                 <form>
                     <input type="text" id="user-name"/>
                     <button type="submit" id="submit-name">Submit High Score</button>
                 </form>
             </div>
-            <p class="saved hidden">Saved!</p>
+            <div class="show-saved">
+                <p class="saved hidden">Saved!</p>
+            </div>
+            
             <div class="play-again hidden">
                 <button id="play-again-button">Click to Play Again</button>
-                
             </div>
+
         </section>
     </main>
-    </section>
     <script src="./assets/script/script.js"></script>
 </body>
 </html>

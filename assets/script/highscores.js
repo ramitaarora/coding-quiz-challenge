@@ -2,7 +2,6 @@ var highScoresDiv = document.querySelector('.display-scores');
 var displayScores = document.querySelector('.view-scores');
 
 var highScores = JSON.parse(localStorage.getItem("scores"));
-console.log(highScores);
 
 if (!highScores) {
     displayScores.innerHTML = '';
