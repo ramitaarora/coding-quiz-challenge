@@ -1,23 +1,28 @@
 var quizData = [
     {
         question: "Commonly used data types do NOT include:",
-        answer: ["alerts", "strings", "booleans", "numbers"] 
+        answer: ["strings", "alerts", "booleans", "numbers"],
+        correctAnswer: "alerts"
     },
     {
         question: "The condition in an if/else state is enclosed with:",
-        answer: ["curly brackets", "quotes", "parenthesis", "square brackets"]
+        answer: ["curly brackets", "quotes", "parenthesis", "square brackets"],
+        correctAnswer: "curly brackets"
     },
     {
         question: "Arrays in Javascript can be used to store:",
-        answer: ["all of the above", "strings", "numbers", "other arrays"]
+        answer: ["strings", "numbers", "other arrays", "all of the above"],
+        correctAnswer: "all of the above"
     },
     {
         question: "Fill in the blank: string values must be enclosed with _____ when being assigned to variables.",
-        answer: ["quotes", "curly brackets", "commas", "parenthesis"]
+        answer: ["curly brackets", "commas","quotes", "parenthesis"],
+        correctAnswer: "quotes"
     },
     {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-        answer: ["console.log", "JavaScript", "terminal/bash", "for loops"]
+        answer: ["console.log", "JavaScript", "terminal/bash", "for loops"],
+        correctAnswer: "console.log"
     }
 ]
 
@@ -39,7 +44,7 @@ var saved = document.querySelector(".saved");
 
 var totalScore = 0;
 var questionNumber = 0;
-var secondsLeft = 10;
+var secondsLeft = 75;
 var percentage;
 var scoresArray = [];
 var prevScores;
@@ -68,10 +73,10 @@ playAgainButton.addEventListener('click', function (event) {
     event.preventDefault();
     questionNumber = 0;
     totalScore = 0;
-    secondsLeft = 10;
+    secondsLeft = 75;
     percentage;
     viewScore.innerHTML = '';
-    nameInput.value;
+    nameInput.value = '';
     timer.textContent = "Timer: " + secondsLeft;
 
     enterName.setAttribute("class", "hidden");
@@ -86,7 +91,7 @@ playAgainButton.addEventListener('click', function (event) {
 answers.addEventListener('click', function(event) {
     wrong.setAttribute("class", "hidden");
     right.setAttribute("class", "hidden");
-    if (event.target.textContent === quizData[questionNumber].answer[0]) {
+    if (event.target.textContent === quizData[questionNumber].correctAnswer) {
         rightAnswer();
     } else {
         wrongAnswer();
