@@ -26,6 +26,7 @@ var quizData = [
     }
 ]
 
+var description = document.querySelector(".description");
 var startButton = document.querySelector("#start-button");
 var quiz = document.querySelector(".quiz");
 var question = document.querySelector(".question");
@@ -52,6 +53,7 @@ var highScore;
 startButton.addEventListener('click', function(event) {
     event.preventDefault();
     startButton.setAttribute("class", "hidden");
+    description.setAttribute("class", "hidden");
     quizTimer();
     playQuiz();
 })
